@@ -6,6 +6,14 @@
     <p>{{ $posts->content }}</p>
 
     <div>
-        Slug: {{ $posts->slug }}
+        <div>
+            Creazione: {{ $posts->created_at }}
+        </div>
+        <div>
+            Ultima modifica: {{ $posts->updated_at }}
+        </div>
+        <div>
+            Slug: {{ $posts->slug }}
+        </div>
     </div>
 @endsection
