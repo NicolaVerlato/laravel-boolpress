@@ -31,7 +31,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create'); 
     }
 
     /**
@@ -42,7 +42,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->getValidationRules());
+        $form_data = $request->all();
+        
+        // return view('admin.posts.show', ['post' =>] )
     }
 
     /**
@@ -94,5 +97,12 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    protected function getValidationRules() {
+        return [
+            'title' => 'required|max:255',
+            'slug' => 'required|max:255'
+        ];
     }
 }
