@@ -16,4 +16,6 @@
             Slug: {{ $posts->slug }}
         </div>
     </div>
+
+    <a class="btn btn-primary mt-3" href="{{ route('admin.posts.edit', ['post' => $posts->id]) }}">Modifica</a>
 @endsection
