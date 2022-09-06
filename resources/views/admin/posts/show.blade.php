@@ -7,10 +7,10 @@
 
     <div>
         <div>
-            Creazione: {{ $posts->created_at }}
+            Creazione: {{ $posts->created_at->format('j F Y, G:i') }}
         </div>
         <div>
-            Ultima modifica: {{ $posts->updated_at }}
+            Ultima modifica: {{ $posts->updated_at->format('l j F Y, G:i') }}
         </div>
         <div>
             Slug: {{ $posts->slug }}
