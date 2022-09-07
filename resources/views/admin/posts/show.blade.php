@@ -4,7 +4,7 @@
     <h1>{{ $posts->title }}</h1>
 
     <p>{{ $posts->content }}</p>
-
+    {{-- {{ dd($posts) }} --}}
     <div>
         <div>
             Creazione: {{ $posts->created_at->format('j F Y, G:i') }}
@@ -14,6 +14,9 @@
         </div>
         <div>
             Slug: {{ $posts->slug }}
+        </div>
+        <div>
+            Categoria: {{ $posts->category ? $posts->category->name : 'Nessuna' }}
         </div>
     </div>
 
