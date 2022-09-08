@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
+// use Carbon\Carbon;
 use App\Category;
 use App\Tag;
 
@@ -63,7 +63,9 @@ class PostController extends Controller
         $new_post->slug = $this->getSlug($new_post->title);
         $new_post->save();
 
-        if (isset($form_data['tags'])) {
+        // se l'array dei dati che ci arrivano dal form è popolato,
+        // popoliamo la colonna tag_id nella tabella pivot nel db
+        if(isset($form_data['tags'])) {
             $new_post->tags()->sync($form_data['tags']);
         }
         
@@ -99,10 +101,12 @@ class PostController extends Controller
     {
         $posts = Post::findOrFail($id);
         $categories = Category::all();
+        $tags = Tag::all();
 
         $data = [
             'posts' => $posts,
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ];
 
         return view('admin.posts.edit', $data);
@@ -131,6 +135,15 @@ class PostController extends Controller
 
         $post_to_update->update($form_data);
 
+        // se l'array dei dati che ci arrivano dal form è popolato,
+        // popoliamo la colonna tag_id nella tabella pivot nel db
+        // se non è popolato non esisterà alcuna relazione nella tabella pivot nel db 
+        if(isset($form_data['tags'])) {
+            $post_to_update->tags()->sync($form_data['tags']);
+        } else{
+            $post_to_update->tags()->sync([]);
+        }
+
         return redirect()->route('admin.posts.show', ['post' => $post_to_update->id]);
     }
 
@@ -143,6 +156,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post_to_delete = Post::findOrFail($id);
+
+        // prima di cancellare un post leviamo ogni relazione con la tabella pivot
+        $post_to_delete->tags()->sync([]);
         $post_to_delete->delete();
 
         return redirect()->route('admin.posts.index');
@@ -152,7 +168,8 @@ class PostController extends Controller
         return [
             'title' => 'required|max:255',
             'content' => 'required|max:60000',
-            'category_id' => 'nullable|exists:App\Category,id'
+            'category_id' => 'nullable|exists:App\Category,id',
+            'tags' => 'nullable|exists:App\Tag,id'
         ];
     }
 
