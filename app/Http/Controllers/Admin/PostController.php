@@ -36,9 +36,11 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
         $data = [
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ];
 
         return view('admin.posts.create', $data); 
@@ -60,6 +62,10 @@ class PostController extends Controller
 
         $new_post->slug = $this->getSlug($new_post->title);
         $new_post->save();
+
+        if (isset($form_data['tags'])) {
+            $new_post->tags()->sync($form_data['tags']);
+        }
         
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
@@ -146,7 +152,7 @@ class PostController extends Controller
         return [
             'title' => 'required|max:255',
             'content' => 'required|max:60000',
-            'category_id' => 'exists:App\Category,id'
+            'category_id' => 'nullable|exists:App\Category,id'
         ];
     }
 
