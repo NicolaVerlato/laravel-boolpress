@@ -18,6 +18,15 @@
         <div>
             Categoria: {{ $posts->category ? $posts->category->name : 'Nessuna' }}
         </div>
+        <div>
+            Tags:
+            @forelse ($posts->tags as $tag)
+                {{ $tag->name }}{{ !$loop->last ? ',' : '' }}
+            @empty
+                Nessuna
+            @endforelse
+        </div>
+        
     </div>
 
     <a class="btn btn-primary mt-3" href="{{ route('admin.posts.edit', ['post' => $posts->id]) }}">Modifica</a>

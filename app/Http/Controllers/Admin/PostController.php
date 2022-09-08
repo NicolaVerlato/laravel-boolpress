@@ -8,6 +8,7 @@ use App\Post;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Category;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -72,9 +73,11 @@ class PostController extends Controller
     public function show($id)
     {
         $posts = Post::findOrFail($id);
+        $tags = Tag::all();
 
         $data = [
-            'posts' => $posts
+            'posts' => $posts,
+            'tags' => $tags
         ];
 
         return view('admin.posts.show', $data);
