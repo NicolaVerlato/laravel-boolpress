@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div class="container">
+        <div class="container mt-2">
             <a href="/admin">Admin</a>
         </div>
 

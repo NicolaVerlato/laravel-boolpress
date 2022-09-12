@@ -1909,7 +1909,39 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Posts'
+  name: 'Posts',
+  data: function data() {
+    return {
+      posts: [],
+      currentPage: 1,
+      numberOfPages: null
+    };
+  },
+  methods: {
+    getPosts: function getPosts(currentPage) {
+      var _this = this;
+
+      axios.get('/api/posts', {
+        params: {
+          page: currentPage
+        }
+      }).then(function (response) {
+        _this.posts = response.data.results.data;
+        _this.currentPage = response.data.results.current_page;
+        _this.numberOfPages = response.data.results.last_page;
+      });
+    },
+    showLessContent: function showLessContent(text) {
+      if (text.length > 100) {
+        return text.slice(0, 100) + '...';
+      } else {
+        return text;
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.getPosts(1);
+  }
 });
 
 /***/ }),
@@ -1949,17 +1981,77 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
-};
-
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
   return _c("section", [_c("div", {
     staticClass: "container"
-  }, [_c("h1", [_vm._v("Tutti i post")])])]);
-}];
+  }, [_c("h1", [_vm._v("Tutti i post")]), _vm._v(" "), _c("div", {
+    staticClass: "row row-cols-3"
+  }, _vm._l(_vm.posts, function (post) {
+    return _c("div", {
+      key: post.id,
+      staticClass: "col"
+    }, [_c("div", {
+      staticClass: "card mt-4"
+    }, [_c("div", {
+      staticClass: "card-body"
+    }, [_c("h4", {
+      staticClass: "card-title"
+    }, [_vm._v(_vm._s(post.title))]), _vm._v(" "), _c("p", {
+      staticClass: "card-text"
+    }, [_vm._v(_vm._s(_vm.showLessContent(post.content)))])])])]);
+  }), 0), _vm._v(" "), _c("nav", {
+    attrs: {
+      "aria-label": "Page navigation example"
+    }
+  }, [_c("ul", {
+    staticClass: "pagination mt-3"
+  }, [_c("li", {
+    staticClass: "page-item",
+    "class": _vm.currentPage == 1 ? "disabled" : ""
+  }, [_c("a", {
+    staticClass: "page-link",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.getPosts(_vm.currentPage - 1);
+      }
+    }
+  }, [_vm._v("\n                        Previous\n                    ")])]), _vm._v(" "), _vm._l(_vm.numberOfPages, function (page) {
+    return _c("li", {
+      key: page,
+      staticClass: "page-item",
+      "class": page == _vm.currentPage ? "active" : "",
+      on: {
+        click: function click($event) {
+          return _vm.getPosts(page);
+        }
+      }
+    }, [_c("a", {
+      staticClass: "page-link",
+      attrs: {
+        href: "#"
+      }
+    }, [_vm._v(_vm._s(page))])]);
+  }), _vm._v(" "), _c("li", {
+    staticClass: "page-item",
+    "class": _vm.currentPage == _vm.numberOfPages ? "disabled" : ""
+  }, [_c("a", {
+    staticClass: "page-link",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.getPosts(_vm.currentPage + 1);
+      }
+    }
+  }, [_vm._v("\n                        Next\n                    ")])])], 2)])])]);
+};
+
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -1988,7 +2080,7 @@ var staticRenderFns = [function () {
       _c = _vm._self._c;
 
   return _c("div", {
-    staticClass: "container"
+    staticClass: "container mt-2"
   }, [_c("a", {
     attrs: {
       href: "/admin"
