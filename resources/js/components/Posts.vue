@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="container">
-            <h1>Tutti i post</h1>
+            <h2>Tutti i post</h2>
 
             <div class="row row-cols-3">
                 <div class="col" v-for="post in posts" :key="post.id">

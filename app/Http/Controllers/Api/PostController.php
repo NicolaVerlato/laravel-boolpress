@@ -12,7 +12,7 @@ class PostController extends Controller
         $posts = Post::paginate(6);
 
         $data = [
-            'return' => true,
+            'success' => true,
             'results' => $posts
         ];
 

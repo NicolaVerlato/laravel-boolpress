@@ -1,20 +1,18 @@
 <template>
     <main>
-        <div class="container mt-2">
-            <a href="/admin">Admin</a>
-        </div>
+        <Header />
 
-        <Posts />
+        <router-view></router-view>
     </main>
 </template>
 
 <script>
-import Posts from '../components/Posts.vue'
+import Header from '../components/Header.vue'
 
 export default {
     name: 'App',
     components: {
-        Posts
+        Header
     }
 }
 </script>
