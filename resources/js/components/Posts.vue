@@ -9,6 +9,7 @@
                         <div class="card-body">
                             <h4 class="card-title">{{ post.title }}</h4>
                             <p class="card-text">{{ showLessContent(post.content) }}</p>
+                            <router-link class="nav-link btn btn-primary" :to="{ name: 'single-post', params: {slug: post.slug} }">Leggi l'articolo</router-link>
                         </div>
                     </div>
                 </div>
