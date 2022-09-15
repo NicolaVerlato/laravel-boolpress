@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>{{ $posts->title }}</h1>
-
+    
     @if ($posts->cover)
         <div class="w-50 mb-4">
             <img src="{{ asset('storage/' . $posts->cover) }}" alt="{{ $posts->title }}">

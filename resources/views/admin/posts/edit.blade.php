@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.posts.update', ['post' => $posts->id]) }}" method="post">
+    <form action="{{ route('admin.posts.update', ['post' => $posts->id]) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -35,6 +35,20 @@
                     <option value="{{ $category->id }}" {{ old('category_id', $posts->category_id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>    
                 @endforeach
             </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Immagine: </label>
+            <input type="file" id="image" name="image">
+
+            @if ($posts->cover)
+                <div>
+                    <div>
+                        Immagine presente:
+                    </div>
+                    <img class="w-50 m-3" src="{{ asset('storage/' . $posts->cover) }}" alt="{{ $posts->title }}">
+                </div>
+            @endif
         </div>
  
         <div>

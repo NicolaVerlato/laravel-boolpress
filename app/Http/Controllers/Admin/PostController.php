@@ -59,10 +59,10 @@ class PostController extends Controller
 
         $form_data = $request->all();
         $new_post = new Post;
-
+        
         if(isset($form_data['image'])){
             $img_path = Storage::put('post_image', $form_data['image']);
-            $new_post->cover = $img_path;
+            $form_data['cover'] = $img_path;
         };
 
         $new_post->fill($form_data);
@@ -138,6 +138,15 @@ class PostController extends Controller
             $form_data['slug'] = $this->getSlug($form_data['title']);
         } else {
             $form_data['slug'] = $post_to_update->slug;
+        }
+
+        if(isset($form_data['image'])){
+            if($post_to_update->cover){
+                Storage::delete($post_to_update->cover);
+            }
+
+            $img_path = Storage::put('post_image', $form_data['image']);
+            $form_data['cover'] = $img_path;
         }
 
         $post_to_update->update($form_data);
