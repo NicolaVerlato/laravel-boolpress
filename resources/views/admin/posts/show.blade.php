@@ -3,8 +3,14 @@
 @section('content')
     <h1>{{ $posts->title }}</h1>
 
+    @if ($posts->cover)
+        <div class="w-50 mb-4">
+            <img src="{{ asset('storage/' . $posts->cover) }}" alt="{{ $posts->title }}">
+        </div>
+    @endif
+
     <p>{{ $posts->content }}</p>
-    {{-- {{ dd($posts) }} --}}
+
     <div>
         <div>
             Creazione: {{ $posts->created_at->format('j F Y, G:i') }}

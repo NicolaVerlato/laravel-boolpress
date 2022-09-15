@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.posts.store') }}" method="post">
+    <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Titolo</label>
@@ -33,6 +33,11 @@
                     <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                 @endforeach
             </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Immagine: </label>
+            <input type="file" id="image" name="image">
         </div>
 
         <div>
