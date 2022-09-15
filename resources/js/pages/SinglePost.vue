@@ -4,7 +4,7 @@
             {{ singlePost.title }}
         </h2>
 
-        <div v-if="singlePost.cover">
+        <div v-if="singlePost.cover" class="mb-2">
             <img :src="singlePost.cover" :alt="singlePost.title">
         </div>
 

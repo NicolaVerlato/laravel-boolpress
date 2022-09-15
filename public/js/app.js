@@ -2398,7 +2398,9 @@ var render = function render() {
 
   return _vm.singlePost ? _c("div", {
     staticClass: "container"
-  }, [_c("h2", [_vm._v("\n        " + _vm._s(_vm.singlePost.title) + "\n    ")]), _vm._v(" "), _vm.singlePost.cover ? _c("div", [_c("img", {
+  }, [_c("h2", [_vm._v("\n        " + _vm._s(_vm.singlePost.title) + "\n    ")]), _vm._v(" "), _vm.singlePost.cover ? _c("div", {
+    staticClass: "mb-2"
+  }, [_c("img", {
     attrs: {
       src: _vm.singlePost.cover,
       alt: _vm.singlePost.title
