@@ -2053,8 +2053,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'SinglePost',
   data: function data() {
     return {
-      singlePost: null,
-      tags: []
+      singlePost: null
     };
   },
   methods: {
@@ -2062,8 +2061,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/api/posts/' + this.$route.params.slug).then(function (response) {
-        _this.singlePost = response.data.results;
-        _this.tags = response.data.results.tags;
+        if (response.data.success) {
+          _this.singlePost = response.data.results;
+        } else {
+          _this.$router.push({
+            name: 'not-found'
+          });
+        }
       });
     }
   },
@@ -2388,7 +2392,7 @@ var render = function render() {
 
   return _vm.singlePost ? _c("div", {
     staticClass: "container"
-  }, [_c("h2", [_vm._v("\n        " + _vm._s(_vm.singlePost.title) + "\n    ")]), _vm._v(" "), _c("p", [_vm._v("\n        " + _vm._s(_vm.singlePost.content) + "\n    ")]), _vm._v(" "), _vm.tags.length > 0 ? _c("div", _vm._l(_vm.tags, function (tag) {
+  }, [_c("h2", [_vm._v("\n        " + _vm._s(_vm.singlePost.title) + "\n    ")]), _vm._v(" "), _c("p", [_vm._v("\n        " + _vm._s(_vm.singlePost.content) + "\n    ")]), _vm._v(" "), _vm.singlePost.tags.length > 0 ? _c("div", _vm._l(_vm.singlePost.tags, function (tag) {
     return _c("span", {
       key: tag.id,
       staticClass: "badge rounded-pill bg-success mr-1 mb-2 p-2"
@@ -54440,7 +54444,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'blog',
     component: _pages_BlogPage_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
-    path: '/posts/:slug',
+    path: '/blog/:slug',
     name: 'single-post',
     component: _pages_SinglePost_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
