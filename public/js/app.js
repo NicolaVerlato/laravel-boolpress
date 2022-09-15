@@ -2185,7 +2185,13 @@ var render = function render() {
       staticClass: "card-body"
     }, [_c("h4", {
       staticClass: "card-title"
-    }, [_vm._v(_vm._s(post.title))]), _vm._v(" "), _c("p", {
+    }, [_vm._v(_vm._s(post.title))]), _vm._v(" "), post.cover ? _c("div", [_c("img", {
+      staticClass: "w-50",
+      attrs: {
+        src: post.cover,
+        alt: post.title
+      }
+    })]) : _vm._e(), _vm._v(" "), _c("p", {
       staticClass: "card-text"
     }, [_vm._v(_vm._s(_vm.showLessContent(post.content)))]), _vm._v(" "), _c("router-link", {
       staticClass: "nav-link btn btn-primary",
@@ -2392,7 +2398,12 @@ var render = function render() {
 
   return _vm.singlePost ? _c("div", {
     staticClass: "container"
-  }, [_c("h2", [_vm._v("\n        " + _vm._s(_vm.singlePost.title) + "\n    ")]), _vm._v(" "), _c("p", [_vm._v("\n        " + _vm._s(_vm.singlePost.content) + "\n    ")]), _vm._v(" "), _vm.singlePost.tags.length > 0 ? _c("div", _vm._l(_vm.singlePost.tags, function (tag) {
+  }, [_c("h2", [_vm._v("\n        " + _vm._s(_vm.singlePost.title) + "\n    ")]), _vm._v(" "), _vm.singlePost.cover ? _c("div", [_c("img", {
+    attrs: {
+      src: _vm.singlePost.cover,
+      alt: _vm.singlePost.title
+    }
+  })]) : _vm._e(), _vm._v(" "), _c("p", [_vm._v("\n        " + _vm._s(_vm.singlePost.content) + "\n    ")]), _vm._v(" "), _vm.singlePost.tags.length > 0 ? _c("div", _vm._l(_vm.singlePost.tags, function (tag) {
     return _c("span", {
       key: tag.id,
       staticClass: "badge rounded-pill bg-success mr-1 mb-2 p-2"

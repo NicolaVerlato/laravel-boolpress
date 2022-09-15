@@ -4,6 +4,10 @@
             {{ singlePost.title }}
         </h2>
 
+        <div v-if="singlePost.cover">
+            <img :src="singlePost.cover" :alt="singlePost.title">
+        </div>
+
         <p>
             {{ singlePost.content }}
         </p>

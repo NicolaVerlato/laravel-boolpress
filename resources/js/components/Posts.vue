@@ -8,6 +8,11 @@
                     <div class="card mt-4">
                         <div class="card-body">
                             <h4 class="card-title">{{ post.title }}</h4>
+
+                            <div v-if="post.cover">
+                                <img class="w-50" :src="post.cover" :alt="post.title">
+                            </div>
+
                             <p class="card-text">{{ showLessContent(post.content) }}</p>
                             <router-link class="nav-link btn btn-primary" :to="{ name: 'single-post', params: {slug: post.slug} }">Leggi l'articolo</router-link>
                         </div>

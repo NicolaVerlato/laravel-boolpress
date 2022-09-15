@@ -173,6 +173,10 @@ class PostController extends Controller
     {
         $post_to_delete = Post::findOrFail($id);
 
+        if ($post_to_delete->cover) {
+            Storage::delete($post_to_delete->cover);
+        }
+
         // prima di cancellare un post leviamo ogni relazione con la tabella pivot
         $post_to_delete->tags()->sync([]);
         $post_to_delete->delete();
