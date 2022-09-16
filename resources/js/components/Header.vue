@@ -35,6 +35,10 @@ export default {
                 {
                     name: 'blog',
                     content: 'Blog'
+                },
+                {
+                    name: 'contact',
+                    content: 'Contatti'
                 }
             ]
         }
