@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 use App\Category;
 use App\Tag;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailForNewPost;
 
 class PostController extends Controller
 {
@@ -75,6 +77,8 @@ class PostController extends Controller
         if(isset($form_data['tags'])) {
             $new_post->tags()->sync($form_data['tags']);
         }
+
+        Mail::to('admin@mail.it')->send(new MailForNewPost());
         
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
